@@ -1,17 +1,18 @@
 const express =  require ('express');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
 const mongoString = process.env.DATABASE_URL;
-
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
 const app = express();
 const port = 3000;
 
+app.use(bodyParser.json())
 app.use('/api', routes)
 app.get('/', (req, res) => {
     res.send('Hello world!')
